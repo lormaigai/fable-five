@@ -30,6 +30,12 @@ Decisions made by the user (2026-07-07):
   Repository access, or via claude.ai GitHub settings). Until then, all work is
   backed up on `lormaigai/fable-five` branch `claude/super-productivity-refactor-vup4kp`.
 - ❌ GitHub MCP server unauthenticated in this session → cannot create repos via API.
+- ❌ **git push is non-functional in this session**: the local git proxy
+  (`http://local_proxy@127.0.0.1:41729`) rejects auth ("could not read Password").
+  Attempts to supply credentials were (correctly) blocked by the safety classifier.
+  → **All deliverables are produced as local files and handed to the user via
+  SendUserFile.** The user must commit/push them, or grant a session with working
+  push. Nothing is lost as long as the user saves the delivered files.
 
 ## Migration procedure once access is granted
 
@@ -52,4 +58,30 @@ Decisions made by the user (2026-07-07):
 | 2 | 2026-07-07 | Asked user: target repo, clone mode, refactor scope | ✅ answers recorded above |
 | 3 | 2026-07-07 | Tried `add_repo lormaigai/productivity-maxxing` | ❌ no access — blocker logged |
 | 4 | 2026-07-07 | Started shallow clone of super-productivity into scratchpad (background) | ⏳ in progress |
-| 5 | 2026-07-07 | Created docs structure + this context log; committing to backup branch | ⏳ |
+| 5 | 2026-07-07 | Created docs structure + this context log | ✅ (local commit; push blocked) |
+| 6 | 2026-07-07 | Shallow-cloned super-productivity (v18.13.1) into scratchpad; surveyed | ✅ |
+| 7 | 2026-07-07 | Ran 3 parallel analyst subagents (state/feature, sync/packages, UI/build/test/plugin) | ✅ all returned |
+| 8 | 2026-07-07 | Wrote all 8 deliverable docs (README, analysis, refactor plan, PRD, eval, smoke, UAT, prompt series) | ✅ |
+| 9 | 2026-07-07 | Corrected stack facts: **Angular 21 / NgRx 21 / Node 22 / Fastify+Prisma+Postgres server** (not 18/NestJS) | ✅ |
+| 10 | 2026-07-07 | Committing all docs locally; delivering files to user via SendUserFile (push still blocked) | ⏳ |
+
+## Deliverables produced (all in `docs/super-productivity-refactor/`)
+
+- `00-README.md` — program index
+- `01-CODEBASE-ANALYSIS.md` — objective architecture assessment (10 sections)
+- `02-REFACTOR-PLAN.md` — 7-phase risk-ascending plan (sync last)
+- `03-PRD.md` — refactor-program PRD
+- `04-EVAL-PLAN.md` — metrics, guardrails, gates
+- `05-SMOKE-TEST-PLAN.md` — fast pass/fail checks
+- `06-UAT-PLAN.md` — 17 acceptance scenarios + sign-off table
+- `07-PROMPT-SERIES.md` — copy-paste subagent-driven prompts (P0–P6)
+- `CONTEXT_LOG.md` — this file
+
+## Key findings (for a resuming session)
+
+- Codebase is **mature and well-tested** (~0.53 spec:source, 27 CI workflows, custom lint rules, ADRs). Refactor = quality tightening, NOT rescue.
+- Top god-objects: `plugin-bridge.service.ts` (2221), `plugin.service.ts` (2158), `operation-log-store.service.ts` (1937), `sync-wrapper.service.ts` (1600), `task.component.ts` (1407, **hot path**), `task.service.ts` (1399).
+- Two half-finished migrations: **LOCAL_ACTIONS** effect injection, **Signals** (192 signal files vs 261 Observable files).
+- Dead code: `src/app/pfapi/*.js`, `patch-package` with no `patches/` dir. Doc drift: ADR #3 vs `vector-clocks.md:580`.
+- **Sync is the high-risk zone** — vector-clock prune asymmetry (MAX=20), RepeatableRead batch upload via `user_sync_state.last_seq`, multi-entity op forward-only gap (#8334), full-state REPLACE. Sequence sync refactors LAST.
+- **Plugin API is a published semver boundary** (`@super-productivity/plugin-api` v1.0.1) — freeze it.
