@@ -1,0 +1,381 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --danger: #c62828;
+  --danger-bg: #fdecea;
+  --caution: #b26a00;
+  --caution-bg: #fff4de;
+  --safe: #2e7d32;
+  --safe-bg: #e8f5e9;
+  --ink: #1a1a1a;
+  --paper: #faf7f2;
+  --card: #ffffff;
+  --accent: #1a5fb4;
+  --line: #e3ddd3;
+}
+
+html {
+  font-size: 20px; /* elderly mode: everything scales from a large base */
+}
+
+body {
+  font-family: Georgia, "Nimbus Roman", "Songti SC", "Noto Serif CJK SC", serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--accent);
+}
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1rem 1rem 4rem;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.75rem 0;
+  flex-wrap: wrap;
+}
+
+.brand {
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.brand span {
+  color: var(--danger);
+}
+
+.lang-toggle {
+  font-size: 1rem;
+  padding: 0.5rem 1.1rem;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--card);
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.nav {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 0.5rem 0 1.25rem;
+}
+
+.nav a {
+  flex: 1;
+  min-width: 140px;
+  text-align: center;
+  text-decoration: none;
+  color: var(--ink);
+  background: var(--card);
+  border: 2px solid var(--line);
+  border-radius: 14px;
+  padding: 0.7rem 0.6rem;
+  font-size: 0.95rem;
+}
+
+.nav a.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: bold;
+}
+
+h1.tagline {
+  font-size: 1.5rem;
+  text-align: center;
+  margin: 0.5rem 0 1.25rem;
+}
+
+.card {
+  background: var(--card);
+  border: 2px solid var(--line);
+  border-radius: 18px;
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+label.big-label {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.6rem;
+}
+
+textarea.big-input {
+  width: 100%;
+  min-height: 9rem;
+  font-size: 1.05rem;
+  font-family: inherit;
+  padding: 0.9rem;
+  border: 2px solid var(--line);
+  border-radius: 14px;
+  resize: vertical;
+  background: #fffdf9;
+}
+
+textarea.big-input:focus {
+  outline: 3px solid var(--accent);
+}
+
+input.big-input {
+  width: 100%;
+  font-size: 1.05rem;
+  font-family: inherit;
+  padding: 0.8rem 0.9rem;
+  border: 2px solid var(--line);
+  border-radius: 14px;
+  background: #fffdf9;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  font-size: 1.35rem;
+  font-weight: bold;
+  font-family: inherit;
+  padding: 1.1rem;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+.btn-primary {
+  background: var(--danger);
+  color: #fff;
+}
+
+.btn-primary:disabled {
+  background: #b9a9a5;
+  cursor: wait;
+}
+
+.btn-secondary {
+  background: var(--card);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  font-size: 1.05rem;
+  padding: 0.8rem;
+}
+
+.upload-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+}
+
+.preview-img {
+  max-width: 100%;
+  max-height: 260px;
+  border-radius: 12px;
+  border: 2px solid var(--line);
+}
+
+.verdict-banner {
+  border-radius: 18px;
+  padding: 1.4rem 1.25rem;
+  text-align: center;
+  margin-bottom: 1.25rem;
+  border: 3px solid;
+}
+
+.verdict-danger {
+  background: var(--danger-bg);
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.verdict-caution {
+  background: var(--caution-bg);
+  border-color: var(--caution);
+  color: var(--caution);
+}
+
+.verdict-safe {
+  background: var(--safe-bg);
+  border-color: var(--safe);
+  color: var(--safe);
+}
+
+.verdict-emoji {
+  font-size: 3.2rem;
+  display: block;
+}
+
+.verdict-label {
+  font-size: 1.45rem;
+  font-weight: bold;
+  display: block;
+  margin: 0.4rem 0;
+}
+
+.verdict-headline {
+  font-size: 1.15rem;
+  color: var(--ink);
+}
+
+.confidence {
+  font-size: 0.9rem;
+  color: var(--ink);
+  opacity: 0.75;
+  margin-top: 0.5rem;
+}
+
+.section-title {
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+}
+
+.tactic {
+  border-left: 6px solid var(--caution);
+  background: var(--caution-bg);
+  border-radius: 0 12px 12px 0;
+  padding: 0.85rem 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.tactic-name {
+  font-weight: bold;
+  font-size: 1.08rem;
+}
+
+.advice-list {
+  list-style: none;
+  counter-reset: advice;
+}
+
+.advice-list li {
+  counter-increment: advice;
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  background: var(--safe-bg);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 0.6rem;
+  font-size: 1.08rem;
+}
+
+.advice-list li::before {
+  content: counter(advice);
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--safe);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.error-box {
+  background: var(--danger-bg);
+  border: 2px solid var(--danger);
+  color: var(--danger);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 1.05rem;
+}
+
+.stats-row {
+  display: flex;
+  gap: 1rem;
+  margin: 1.25rem 0;
+}
+
+.stat {
+  flex: 1;
+  text-align: center;
+  background: var(--card);
+  border: 2px solid var(--line);
+  border-radius: 14px;
+  padding: 0.9rem;
+}
+
+.stat b {
+  display: block;
+  font-size: 1.7rem;
+}
+
+.stat span {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.footnote {
+  text-align: center;
+  font-size: 0.85rem;
+  opacity: 0.75;
+  margin-top: 1.5rem;
+}
+
+.library-item {
+  cursor: pointer;
+}
+
+.library-message {
+  background: #f2efe8;
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  font-size: 0.98rem;
+  margin: 0.6rem 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.check-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--line);
+  padding: 0.85rem 0;
+}
+
+.check-badge {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.check-meta {
+  font-size: 0.82rem;
+  opacity: 0.7;
+}
+
+.alert-banner {
+  background: var(--danger-bg);
+  border: 3px solid var(--danger);
+  color: var(--danger);
+  font-weight: bold;
+  border-radius: 14px;
+  padding: 1rem;
+  text-align: center;
+  font-size: 1.15rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 18px;
+  }
+}
